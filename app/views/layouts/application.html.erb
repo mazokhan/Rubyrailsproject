@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="navbar-header">
+                <button class="navbar-brand" id="current_weather"><i class="fa fa-cloud-download"></i> Weather</button>
+              </div>
+            </div>
+            <%= form_tag "/home/search_weather", method: :get,remote:true, id: "search_weather" do %>
+              <div class="col-md-3">
+                <%= text_field_tag :city, params[:city], 
+                                  placeholder: "Enter City Name", autofocus: true,
+                                  class: "form-control search-box input-lg", required: true %>
+              </div>
+              <%= button_tag '<i class="fa fa-search"></i>'.html_safe, class: 'btn btn-default btn-lg',
+              data: { disable_with: "<i class='fa fa-refresh fa-spin'></i> weather syncing ..."} %>
+            <%end%>
+           </div> 
+        </div>
+      </nav>
+      <%= yield %>
+    </div>
+  </body>
+</html>
